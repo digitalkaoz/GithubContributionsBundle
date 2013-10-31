@@ -4,6 +4,12 @@ GithubContributionsBundle
 This Bundle lets you display some Github Statistics in your Symfony2 Application.
 See https://help.github.com/articles/viewing-contributions for more Information.
 
+[![Build Status](https://travis-ci.org/digitalkaoz/GithubContributionsBundle.png?branch=master)](https://travis-ci.org/digitalkaoz/GithubContributionsBundle)
+[![Scrutinizer Quality Score](https://scrutinizer-ci.com/g/digitalkaoz/GithubContributionsBundle/badges/quality-score.png?s=c68ce65808d8b57755f1ec492ae1036fd94bf875)](https://scrutinizer-ci.com/g/digitalkaoz/GithubContributionsBundle/)
+[![Code Coverage](https://scrutinizer-ci.com/g/digitalkaoz/GithubContributionsBundle/badges/coverage.png?s=737b1c8195155fe8aeb3bf956b04d0bd77d1d3e2)](https://scrutinizer-ci.com/g/digitalkaoz/GithubContributionsBundle/)
+[![SensioLabsInsight](https://insight.sensiolabs.com/projects/a74d75ea-6aa5-4cf9-95dd-db4afbb5b2dc/mini.png)](https://insight.sensiolabs.com/projects/a74d75ea-6aa5-4cf9-95dd-db4afbb5b2dc)
+[![Latest Stable Version](https://poser.pugx.org/digitalkaoz/github-contributions-bundle/v/stable.png)](https://packagist.org/packages/digitalkaoz/github-contributions-bundle)
+[![Total Downloads](https://poser.pugx.org/digitalkaoz/github-contributions-bundle/downloads.png)](https://packagist.org/packages/digitalkaoz/github-contributions-bundle)
 
 Installation
 ============

@@ -1,11 +1,11 @@
 {
     "name": "digitalkaoz/github-contributions-bundle",
     "license": "MIT",
-    "type": "Symfony2 Bundle",
+    "type": "symfony-bundle",
     "description": "Symfony2 Bundle to show Github Contributions",
 
     "keywords": [
-        "gaufrette", "filesystem", "browser"
+        "bundle", "symfony", "github"
     ],
 
     "authors": [
