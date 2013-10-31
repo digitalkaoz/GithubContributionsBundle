@@ -14,7 +14,7 @@ See https://help.github.com/articles/viewing-contributions for more Information.
 Installation
 ============
 
-Include the Bundle in `Composer`
+Add the Bundle with `Composer`
 ---------------------------
 
 ```json
@@ -29,7 +29,7 @@ For Caching add `"liip/doctrine-cache-bundle": "~1.0"` as well!
 
 Then update your Dependencies: `php composer.phar update`
 
-Activate the Bundle in your Kernel
+Activate the Bundle in your `AppKernel`
 ----------------------------------
 
 ```php
