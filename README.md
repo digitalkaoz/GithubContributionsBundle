@@ -12,11 +12,11 @@ Include the Bundle in `Composer`
 ---------------------------
 
 ```json
-    {
-        "require" : {
-            "digitalkaoz/GithubContributionsBundle" : "dev-master"
-        }
+{
+    "require" : {
+        "digitalkaoz/GithubContributionsBundle" : "dev-master"
     }
+}
 ```
 
 For Caching add `"liip/doctrine-cache-bundle": "~1.0"` as well!
@@ -27,34 +27,34 @@ Activate the Bundle in your Kernel
 ----------------------------------
 
 ```php
-    public function registerBundles()
-    {
-        $bundles = array(
-            // ...
-            new digitalkaoz\GithubContributionsBundle\digitalkaozGithubContributionsBundle()
-        );
+public function registerBundles()
+{
+    $bundles = array(
+        // ...
+        new digitalkaoz\GithubContributionsBundle\digitalkaozGithubContributionsBundle()
+    );
 
-        return $bundles;
-    }
+    return $bundles;
+}
 ```
 
 Include the Routing File in your `routing.yml`
 ----------------------------------------------
 
 ```yaml
-    digitalkaoz_github_contributions:
-        resource: "@digitalkaozGithubContributionsBundle/Resources/config/routing.xml"
-        prefix:   /github
+digitalkaoz_github_contributions:
+    resource: "@digitalkaozGithubContributionsBundle/Resources/config/routing.xml"
+    prefix:   /github
 ```
 
 Include `cal-heatmap` and `d3.js` and our own `contributions.js` Stylesheets and Scripts
 ----------------------------------------------------------
 
 ```html
-    <link rel="stylesheet" href="/path/to/cal-heatmap.css" />
-    <script type="text/javascript" src="/path/to/d3.min.js"></script>
-    <script type="text/javascript" src="/path/to/cal-heatmap.min.js"></script>
-    <script type="text/javascript" src="/bundles/digitalkaozgithubcontributions/js/contributions.js"></script>
+<link rel="stylesheet" href="/path/to/cal-heatmap.css" />
+<script type="text/javascript" src="/path/to/d3.min.js"></script>
+<script type="text/javascript" src="/path/to/cal-heatmap.min.js"></script>
+<script type="text/javascript" src="/bundles/digitalkaozgithubcontributions/js/contributions.js"></script>
 ```
 
 Configuration
@@ -63,22 +63,21 @@ Configuration
 the full configuration looks like this:
 
 ```yaml
-    # only needed if you want to cache the github reponses (recommend)
-    liip_doctrine_cache:
-        namespaces:
-            github:
-                type: file_system
+# only needed if you want to cache the github reponses (recommend)
+liip_doctrine_cache:
+    namespaces:
+        github:
+            type: file_system
 
-    #nothing is required, but its recommended to use an api token and cache the results
-    digitalkaoz_github_contributions:
-        api_token:     your_github_api_token
-        cache_service: liip_doctrine_cache.ns.github
-        username:      your_github_username
-        templates:
-            contributions:   digitalkaozGithubContributionsBundle:Contributions:contributions.html.twig
-            activity_stream: digitalkaozGithubContributionsBundle:Contributions:activity.html.twig
-            user_repos:      digitalkaozGithubContributionsBundle:Contributions:user_repos.html.twig
-
+#nothing is required, but its recommended to use an api token and cache the results
+digitalkaoz_github_contributions:
+    api_token:     your_github_api_token
+    cache_service: liip_doctrine_cache.ns.github
+    username:      your_github_username
+    templates:
+        contributions:   digitalkaozGithubContributionsBundle:Contributions:contributions.html.twig
+        activity_stream: digitalkaozGithubContributionsBundle:Contributions:activity.html.twig
+        user_repos:      digitalkaozGithubContributionsBundle:Contributions:user_repos.html.twig
 ```
 
 Usage
@@ -93,6 +92,8 @@ View the Statistics
 
 Generate the Caches
 -------------------
+
+TODO...
 
 the calculation of your contributions may take a while, so i build some commands to generate the caches eagerly from your console/cronjobs.
 
