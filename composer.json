@@ -1,5 +1,5 @@
 {
-    "name": "digitalkaoz/GithubContributionsBundle",
+    "name": "digitalkaoz/github-contributions-bundle",
     "license": "MIT",
     "type": "Symfony2 Bundle",
     "description": "Symfony2 Bundle to show Github Contributions",
