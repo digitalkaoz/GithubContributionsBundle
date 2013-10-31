@@ -53,16 +53,6 @@ digitalkaoz_github_contributions:
     prefix:   /github
 ```
 
-Include `cal-heatmap` and `d3.js` and our own `contributions.js` Stylesheets and Scripts
-----------------------------------------------------------
-
-```html
-<link rel="stylesheet" href="/path/to/cal-heatmap.css" />
-<script type="text/javascript" src="/path/to/d3.min.js"></script>
-<script type="text/javascript" src="/path/to/cal-heatmap.min.js"></script>
-<script type="text/javascript" src="/bundles/digitalkaozgithubcontributions/js/contributions.js"></script>
-```
-
 Configuration
 =============
 
