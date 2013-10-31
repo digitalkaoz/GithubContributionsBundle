@@ -57,7 +57,7 @@ class digitalkaozGithubContributionsExtension extends Extension
 
         //add the user if set
         if ($config['username']) {
-            $service->addMethodCall('setUser', array($config['username']));
+            $service->addArgument($config['username']);
         }
     }
 

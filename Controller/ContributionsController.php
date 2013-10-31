@@ -39,20 +39,11 @@ class ContributionsController
      * @param TwigEngine   $templating
      * @param array        $templates
      */
-    public function __construct(Contribution $factory, EngineInterface $templating, array $templates)
+    public function __construct(Contribution $factory, EngineInterface $templating, array $templates, $user = null)
     {
         $this->factory = $factory;
         $this->templating = $templating;
         $this->templates = $templates;
-    }
-
-    /**
-     * set the user to perform api actions on
-     *
-     * @param string $user
-     */
-    public function setUser($user)
-    {
         $this->user = $user;
     }
 
@@ -66,11 +57,8 @@ class ContributionsController
      */
     public function contributionsAction($username = null)
     {
-        if (!$username && !$this->user) {
-            throw new NotAcceptableHttpException('either set username or pass a username');
-        }
-
-        $contributions = $this->factory->getContributions($username ? : $this->user);
+        $username = $this->preCheckUser($username);
+        $contributions = $this->factory->getContributions($username);
 
         return new Response($this->templating->render($this->templates['contributions'], array('contributions' => $contributions)));
     }
@@ -84,19 +72,9 @@ class ContributionsController
      */
     public function userReposAction($username = null)
     {
-        if (!$username && !$this->user) {
-            throw new NotAcceptableHttpException('either set username or pass a username');
-        }
-
-        $repos = $this->factory->getUserRepos($username ? : $this->user);
-
-        usort($repos, function ($a, $b) {
-            if (strtotime($a['pushed_at']) == strtotime($b['pushed_at'])) {
-                return 0;
-            }
-
-            return strtotime($a['pushed_at']) > strtotime($b['pushed_at']) ? -1 : 1;
-        });
+        $username = $this->preCheckUser($username);
+        $repos = $this->factory->getUserRepos($username);
+        $this->sortReposByRecentPush($repos);
 
         return new Response($this->templating->render($this->templates['user_repos'], array('repos' => $repos)));
     }
@@ -111,16 +89,58 @@ class ContributionsController
      */
     public function activityStreamAction($username = null)
     {
+        $username = $this->preCheckUser($username);
+        $data = $this->factory->getActivityStream($username);
+        list($formatted, $min, $max) = $this->prepareActivityData($data);
+
+        return new Response($this->templating->render($this->templates['activity_stream'], array('data' => $formatted, 'min' => $min, 'max' => $max)));
+    }
+
+    /**
+     * checks if a user is injected or given a request parameter
+     *
+     * @param string $username
+     * @return string
+     * @throws NotAcceptableHttpException
+     */
+    private function preCheckUser($username = null)
+    {
         if (!$username && !$this->user) {
             throw new NotAcceptableHttpException('either set username or pass a username');
         }
 
-        $data = $this->factory->getActivityStream($username ? : $this->user);
+        return $username ?: $this->user;
+    }
+
+    /**
+     * sorts repositories by recent pushed date
+     *
+     * @param array $repos
+     */
+    private function sortReposByRecentPush(array &$repos)
+    {
+        usort($repos, function ($a, $b) {
+            if (strtotime($a['pushed_at']) == strtotime($b['pushed_at'])) {
+                return 0;
+            }
+
+            return strtotime($a['pushed_at']) > strtotime($b['pushed_at']) ? -1 : 1;
+        });
+    }
+
+    /**
+     * prepares the activity for cal-heatmap
+     *
+     * @param array $data
+     * @return array
+     * @see http://kamisama.github.io/cal-heatmap
+     */
+    private function prepareActivityData(array $data)
+    {
         $formatted = array();
         $min = time();
         $max = time();
 
-        //reformat data to be readable by http://kamisama.github.io/cal-heatmap
         foreach ($data as $set) {
             if (strtotime($set[0]) < $min) {
                 $min = strtotime($set[0]);
@@ -131,7 +151,7 @@ class ContributionsController
             $formatted[strtotime($set[0])] = $set[1];
         }
 
-        return new Response($this->templating->render($this->templates['activity_stream'], array('data' => $formatted, 'min' => $min, 'max' => $max)));
+        return array($formatted, $min, $max);
     }
 
 }

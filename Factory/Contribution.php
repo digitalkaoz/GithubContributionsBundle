@@ -56,7 +56,7 @@ class Contribution
      */
     public function getContributions($user)
     {
-        if ($this->cache && (false !== $data = $this->cache->fetch(self::CONTRIBUTIONS_CACHE_KEY))) {
+        if ($this->cache && (false !== $data = $this->cache->fetch(self::CONTRIBUTIONS_CACHE_KEY.$user))) {
 
             return $data;
         }
@@ -82,7 +82,7 @@ class Contribution
         }
 
         if ($this->cache) {
-            $this->cache->save(self::CONTRIBUTIONS_CACHE_KEY, $contributions);
+            $this->cache->save(self::CONTRIBUTIONS_CACHE_KEY.$user, $contributions);
         }
 
         return $contributions;
@@ -96,7 +96,7 @@ class Contribution
      */
     public function getUserRepos($user)
     {
-        if ($this->cache && (false !== $data = $this->cache->fetch(self::OWN_REPOS_CACHE_KEY))) {
+        if ($this->cache && (false !== $data = $this->cache->fetch(self::OWN_REPOS_CACHE_KEY.$user))) {
 
             return $data;
         }
@@ -111,7 +111,7 @@ class Contribution
         }
 
         if ($this->cache) {
-            $this->cache->save(self::OWN_REPOS_CACHE_KEY, $contributions);
+            $this->cache->save(self::OWN_REPOS_CACHE_KEY.$user, $contributions);
         }
 
         return $contributions;
@@ -126,7 +126,7 @@ class Contribution
      */
     public function getActivityStream($user)
     {
-        if ($this->cache && (false !== $data = $this->cache->fetch(self::ACTIVITY_CACHE_KEY))) {
+        if ($this->cache && (false !== $data = $this->cache->fetch(self::ACTIVITY_CACHE_KEY.$user))) {
 
             return $data;
         }
@@ -136,7 +136,7 @@ class Contribution
         $data = $client->get('users/' . $user . '/contributions_calendar_data')->getContent();
 
         if ($this->cache) {
-            $this->cache->save(self::ACTIVITY_CACHE_KEY, $data);
+            $this->cache->save(self::ACTIVITY_CACHE_KEY.$user, $data);
         }
 
         return $data;
