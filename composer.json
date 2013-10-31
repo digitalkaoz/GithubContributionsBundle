@@ -26,7 +26,7 @@
 
     "require": {
         "symfony/framework-bundle": "~2.3",
-        "knplabs/github-api": "dev-master"
+        "knplabs/github-api": "~1.1"
     },
 
     "suggest": {
