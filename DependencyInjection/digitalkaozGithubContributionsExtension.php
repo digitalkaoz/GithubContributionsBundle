@@ -12,6 +12,8 @@ use Symfony\Component\HttpKernel\DependencyInjection\Extension;
  * This is the class that loads and manages your bundle configuration
  *
  * To learn more see {@link http://symfony.com/doc/current/cookbook/bundles/extension.html}
+ *
+ * @author Robert Schönthal <robert.schoenthal@gmail.com>
  */
 class digitalkaozGithubContributionsExtension extends Extension
 {
@@ -30,9 +32,10 @@ class digitalkaozGithubContributionsExtension extends Extension
     }
 
     /**
+     * add configuration to the factory
+     *
      * @param ContainerBuilder $container
      * @param                  $config
-     * @throws \Symfony\Component\Config\Definition\Exception\InvalidConfigurationException
      */
     private function processFactory(ContainerBuilder $container, $config)
     {
@@ -49,6 +52,12 @@ class digitalkaozGithubContributionsExtension extends Extension
         }
     }
 
+    /**
+     * add configuration to the controller
+     *
+     * @param ContainerBuilder $container
+     * @param                  $config
+     */
     private function processController(ContainerBuilder $container, $config)
     {
         $service = $container->getDefinition('digitalkaoz_github_contributions.controller');
