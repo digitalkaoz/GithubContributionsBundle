@@ -82,7 +82,7 @@ Usage
 View the Statistics
 -------------------
 
-* visit `/github/contributions` to view a list of repositories
+* visit `/github/contributions` to view a list of repositories you have contributed to
 * visit `/github/repos` to view a list of your own repositories
 * visit `/github/activity` to view your contribution calendar (like the github one)
 
