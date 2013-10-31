@@ -1,10 +1,8 @@
-<h3> Contributions</h3>
-<p class="lead">lorem ipsum</p>
-<div class="list-group">
+{% extends 'digitalkaozGithubContributionsBundle::layout.html.twig' %}
+
+{% block content %}
+    <h3>Github Contributions</h3>
     {% for contribution in contributions %}
-        <a href="{{ contribution.html_url }}" target="_blank" class="list-group-item">
-            <h4 class="list-group-item-heading">{{ contribution.full_name }}</h4>
-            <p class="list-group-item-text">{{ contribution.description }}</p>
-        </a>
+        <iframe src="http://lab.lepture.com/github-cards/card.html?user={{ contribution.owner.login }}&repo={{ contribution.name }}&target=blank" frameborder="0" scrolling="0" width="100%" height="250" allowtransparency></iframe>
     {% endfor %}
-</div>
+{% endblock %}

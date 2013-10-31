@@ -5,10 +5,10 @@
     <route id="digitalkaoz_github_contributions_contributions" pattern="/contributions">
         <default key="_controller">digitalkaoz_github_contributions.controller:contributionsAction</default>
     </route>
-    <route id="digitalkaoz_github_contributions_contributions" pattern="/repositories">
+    <route id="digitalkaoz_github_contributions_repositories" pattern="/repositories">
         <default key="_controller">digitalkaoz_github_contributions.controller:userReposAction</default>
     </route>
-    <route id="digitalkaoz_github_contributions_contributions" pattern="/activity">
+    <route id="digitalkaoz_github_contributions_activity" pattern="/activity">
         <default key="_controller">digitalkaoz_github_contributions.controller:activityStreamAction</default>
     </route>
 </routes>

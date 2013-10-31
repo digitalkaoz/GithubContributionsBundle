@@ -1,11 +1,16 @@
 var contributions = function (query) {
-    var elem = $(query);
+    var elem = document.getElementById(query);
+    var min = elem.getAttribute('data-min');
+    var max = elem.getAttribute('data-max');
+    var next = elem.getAttribute('data-next');
+    var prev = elem.getAttribute('data-prev');
+    var dataElement = window[elem.getAttribute('data-data')];
 
     var cal = new CalHeatMap();
     cal.init({
-        start: new Date(new Date().setMonth(new Date().getMonth() - 12)),
+        start: new Date(min * 1000),
         maxDate: new Date(),
-        minDate: new Date($(elem).data('min') * 1000),
+        minDate: new Date(min * 1000),
         range: 13,
         domainLabelFormat: "%m-%Y",
         domainMargin: [10, 0, 10, 0],
@@ -21,12 +26,10 @@ var contributions = function (query) {
         legendOrientation: "horizontal",
         domain: "month",
         subDomain: "day",
-        data: window[$(elem).data('data')],
-        previousSelector: $(elem).data('prev'),
-        nextSelector: $(elem).data('prev')
+        data: dataElement,
+        previousSelector: prev,
+        nextSelector: next
     });
 }
 
-$(document).ready(function () {
-    contributions('#cal-heatmap');
-});
+contributions('cal-heatmap');
