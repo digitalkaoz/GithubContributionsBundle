@@ -1,0 +1,17 @@
+<div class="row">
+{% for repo in repos %}
+    <div class="col-md-6">
+        <iframe src="/js/libs/github-cards/card.html?user={{ repo.owner.login }}&repo={{ repo.name }}&target=blank" frameborder="0" scrolling="0" width="100%" height="250" allowtransparency></iframe>
+    </div>
+
+    {#<div class="col-md-4">#}
+        {#<div class="panel panel-default">#}
+            {#<div class="panel-heading"><a href="{{ repo.html_url }}" target="_blank">{{ repo.full_name }}</a></div>#}
+            {#<div class="panel-body">#}
+                {#{{ repo.description }}#}
+            {#</div>#}
+        {#</div>#}
+    {#</div>#}
+{% endfor %}
+</div>
+<script src="http://lab.lepture.com/github-cards/widget.js"></script>

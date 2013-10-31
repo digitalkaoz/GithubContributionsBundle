@@ -1,0 +1,10 @@
+<h3> Contributions</h3>
+<p class="lead">lorem ipsum</p>
+<div class="list-group">
+    {% for contribution in contributions %}
+        <a href="{{ contribution.html_url }}" target="_blank" class="list-group-item">
+            <h4 class="list-group-item-heading">{{ contribution.full_name }}</h4>
+            <p class="list-group-item-text">{{ contribution.description }}</p>
+        </a>
+    {% endfor %}
+</div>

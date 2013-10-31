@@ -1,0 +1,37 @@
+{
+    "name": "digitalkaoz/GithubContributionsBundle",
+    "license": "MIT",
+    "type": "Symfony2 Bundle",
+    "description": "Symfony2 Bundle to show Github Contributions",
+
+    "keywords": [
+        "gaufrette", "filesystem", "browser"
+    ],
+
+    "authors": [
+        {
+            "name": "Robert Schönthal",
+            "homepage": "http://digitalkaoz.net",
+            "email": "robert.schoenthal@gmail.com"
+        }
+    ],
+
+    "autoload": {
+        "psr-0": {
+            "digitalkaoz\\GithubContributionsBundle": ""
+        }
+    },
+
+    "minimum-stability": "stable",
+
+    "require": {
+        "symfony/framework-bundle": "~2.3",
+        "knplabs/github-api": "dev-master"
+    },
+
+    "suggest": {
+        "liip/doctrine-cache-bundle": "for caching github responses"
+    },
+
+    "target-dir": "digitalkaoz/GithubContributionsBundle"
+}

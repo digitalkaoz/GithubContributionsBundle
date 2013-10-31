@@ -1,0 +1,28 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <parameters>
+        <parameter key="digitalkaoz_github_contributions.factory.class">digitalkaoz\GithubContributionsBundle\Factory\Contribution</parameter>
+    </parameters>
+
+    <services>
+        <service id="digitalkaoz_github_contributions_cache_client" class="Github\HttpClient\CachedHttpClient">
+            <argument type="collection">
+                <argument type="string" key="cache_dir">/tmp/github-api-cache</argument>
+            </argument>
+        </service>
+        <service id="digitalkaoz_github_contributions_client" class="Github\Client">
+            <argument type="service" id="digitalkaoz_github_contributions_cache_client"/>
+        </service>
+
+        <service id="digitalkaoz_github_contributions.factory" class="%digitalkaoz_github_contributions.factory.class%">
+            <argument type="service" id="digitalkaoz_github_contributions_client"/>
+        </service>
+
+        <service id="digitalkaoz_github_contributions.controller" class="digitalkaoz\GithubContributionsBundle\Controller\ContributionsController">
+            <argument type="service" id="digitalkaoz_github_contributions.factory"/>
+            <argument type="service" id="templating"/>
+        </service>
+    </services>
+</container>

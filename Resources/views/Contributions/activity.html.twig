@@ -1,0 +1,9 @@
+<div class="row">
+    <button class="btn btn-default" id="cal-heatmap-prev"><span class="glyphicon glyphicon-arrow-left"></span></button> <button id="cal-heatmap-next" class="btn btn-default"><span class="glyphicon glyphicon-arrow-right"></span></button>
+
+    <script type="text/javascript">
+        var github_activity_data = {{ data|json_encode|raw }};
+    </script>
+
+    <div id="cal-heatmap" class="col-md-12" data-min="{{ min }}" data-max="{{ max }}" data-prev="#cal-heatmap-prev" data-next="#cal-heatmap-next" data-data="github_activity_data"></div>
+</div>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<routes xmlns="http://symfony.com/schema/routing" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://symfony.com/schema/routing http://symfony.com/schema/routing/routing-1.0.xsd">
+
+    <route id="digitalkaoz_github_contributions_contributions" pattern="/contributions">
+        <default key="_controller">digitalkaoz_github_contributions.controller:contributionsAction</default>
+    </route>
+    <route id="digitalkaoz_github_contributions_contributions" pattern="/repositories">
+        <default key="_controller">digitalkaoz_github_contributions.controller:userReposAction</default>
+    </route>
+    <route id="digitalkaoz_github_contributions_contributions" pattern="/activity">
+        <default key="_controller">digitalkaoz_github_contributions.controller:activityStreamAction</default>
+    </route>
+</routes>
