@@ -91,10 +91,9 @@ Generate the Caches
 
 the calculation of your contributions may take a while, so i build some commands to generate the caches eagerly from your console/cronjobs.
 
-* run `app/console github:update-contributions` to update your contributions cache
-* run `app/console github:update-repos` to update your repos cache
-* run `app/console github:update-activity` to update your activity cache
-
+* run `app/console github:contribution-update contribution digitalkaoz` to update the contributions cache for `digitalkaoz`
+* run `app/console github:contribution-update repos digitalkaoz` to update the repos cache for `digitalkaoz`
+* run `app/console github:contribution-update activity digitalkaoz` to update the activity cache for `digitalkaoz`
 
 Tests
 =====
