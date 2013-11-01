@@ -89,8 +89,6 @@ View the Statistics
 Generate the Caches
 -------------------
 
-TODO...
-
 the calculation of your contributions may take a while, so i build some commands to generate the caches eagerly from your console/cronjobs.
 
 * run `app/console github:update-contributions` to update your contributions cache
@@ -101,5 +99,12 @@ the calculation of your contributions may take a while, so i build some commands
 Tests
 =====
 
-everything is well tested and under CI:
+everything is well tested and under CI.
+
+TODO
+====
+
+* more Tests
+* other useful stats?
+* more generic approach for hooking own stats collectors?
 

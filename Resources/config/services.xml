@@ -4,15 +4,16 @@
 
     <parameters>
         <parameter key="digitalkaoz_github_contributions.factory.class">digitalkaoz\GithubContributionsBundle\Factory\Contribution</parameter>
+        <parameter key="digitalkaoz_github_contributions.controller.class">digitalkaoz\GithubContributionsBundle\Controller\ContributionsController</parameter>
     </parameters>
 
     <services>
-        <service id="digitalkaoz_github_contributions_cache_client" class="Github\HttpClient\CachedHttpClient">
+        <service id="digitalkaoz_github_contributions_cache_client" class="Github\HttpClient\CachedHttpClient" public="false">
             <argument type="collection">
                 <argument type="string" key="cache_dir">/tmp/github-api-cache</argument>
             </argument>
         </service>
-        <service id="digitalkaoz_github_contributions_client" class="Github\Client">
+        <service id="digitalkaoz_github_contributions_client" class="Github\Client"  public="false">
             <argument type="service" id="digitalkaoz_github_contributions_cache_client"/>
         </service>
 
@@ -20,7 +21,7 @@
             <argument type="service" id="digitalkaoz_github_contributions_client"/>
         </service>
 
-        <service id="digitalkaoz_github_contributions.controller" class="digitalkaoz\GithubContributionsBundle\Controller\ContributionsController">
+        <service id="digitalkaoz_github_contributions.controller" class="%digitalkaoz_github_contributions.controller.class%">
             <argument type="service" id="digitalkaoz_github_contributions.factory"/>
             <argument type="service" id="templating"/>
         </service>
