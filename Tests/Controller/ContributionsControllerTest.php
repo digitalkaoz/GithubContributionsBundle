@@ -47,8 +47,8 @@ class ContributionsControllerTest extends \PHPUnit_Framework_TestCase
 
     public function testUserReposAction()
     {
-        $this->factory->expects($this->atLeastOnce())->method('getUserRepos')->with('digitalkaoz')->will($this->returnValue(array(array('pushed_at'=>time()), array('pushed_at'=>time()-1))));
-        $this->templating->expects($this->atLeastOnce())->method('render')->with('FooBundle:Bar:repos.html.twig', array('repos' => array(array('pushed_at'=>time()-1), array('pushed_at'=>time()))))->will($this->returnValue('repos'));
+        $this->factory->expects($this->atLeastOnce())->method('getUserRepos')->with('digitalkaoz')->will($this->returnValue(array(array('pushed_at'=>time()), array('pushed_at'=>time()))));
+        $this->templating->expects($this->atLeastOnce())->method('render')->with('FooBundle:Bar:repos.html.twig', array('repos' => array(array('pushed_at'=>time()), array('pushed_at'=>time()))))->will($this->returnValue('repos'));
 
         $result = $this->controller->userReposAction('digitalkaoz');
 
