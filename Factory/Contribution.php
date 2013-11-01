@@ -61,36 +61,30 @@ class Contribution
      */
     public function getContributions($user)
     {
-        if ($this->cache && !$this->ignoreCache && (false !== $data = $this->cache->fetch(self::CONTRIBUTIONS_CACHE_KEY.$user))) {
+        $cacheKey = self::CONTRIBUTIONS_CACHE_KEY . $user;
+
+        if (null !== $data = $this->checkForCache($cacheKey)) {
 
             return $data;
         }
 
-        $repos = $this->client->api('user')->setPerPage(100)->repositories($user);
-        $contributions = array();
+        $repos = array_filter($this->client->api('user')->setPerPage(100)->repositories($user), function ($repo) {
+            return false !== $repo['fork'];
+        });
 
-        foreach ($repos as $repo) {
-            if (false === $repo['fork']) {
-                continue;
-            }
-
+        foreach ($repos as $key => $repo) {
             $details = $this->client->api('repo')->show($user, $repo['name']);
-            $parent = explode('/', $details['parent']['full_name']);
-            $contributors = $this->client->api('repo')->contributors($parent[0], $parent[1]);
 
-            foreach ($contributors as $contributor) {
-                if ($contributor['login'] == $user) {
-                    $contributions[] = $details['parent'];
-                    break;
-                }
+            if($this->isContributor($user, $details['parent'])) {
+                $repos[$key] = $details['parent'];
+            } else {
+                unset($repos[$key]);
             }
         }
 
-        if ($this->cache) {
-            $this->cache->save(self::CONTRIBUTIONS_CACHE_KEY.$user, $contributions);
-        }
+        $this->storeCache($cacheKey, $repos);
 
-        return $contributions;
+        return $repos;
     }
 
     /**
@@ -101,25 +95,20 @@ class Contribution
      */
     public function getUserRepos($user)
     {
-        if ($this->cache && !$this->ignoreCache && (false !== $data = $this->cache->fetch(self::OWN_REPOS_CACHE_KEY.$user))) {
+        $cacheKey = self::OWN_REPOS_CACHE_KEY . $user;
+
+        if (null !== $data = $this->checkForCache($cacheKey)) {
 
             return $data;
         }
 
-        $repos = $this->client->api('user')->setPerPage(100)->repositories($user);
-        $contributions = array();
+        $repos = array_filter($this->client->api('user')->setPerPage(100)->repositories($user), function ($repo) {
+            return false === $repo['fork'];
+        });
 
-        foreach ($repos as $repo) {
-            if (false === $repo['fork']) {
-                $contributions[] = $repo;
-            }
-        }
+        $this->storeCache($cacheKey, $repos);
 
-        if ($this->cache) {
-            $this->cache->save(self::OWN_REPOS_CACHE_KEY.$user, $contributions);
-        }
-
-        return $contributions;
+        return $repos;
     }
 
     /**
@@ -131,18 +120,18 @@ class Contribution
      */
     public function getActivityStream($user)
     {
-        if ($this->cache && !$this->ignoreCache && (false !== $data = $this->cache->fetch(self::ACTIVITY_CACHE_KEY.$user))) {
+        $cacheKey = self::ACTIVITY_CACHE_KEY . $user;
+
+        if (null !== $data = $this->checkForCache($cacheKey)) {
 
             return $data;
         }
 
-        $client = clone $this->client->getHttpClient();
+        $client = $this->client->getHttpClient();
         $client->setOption('base_url', 'https://github.com/');
         $data = $client->get('users/' . $user . '/contributions_calendar_data')->getContent();
 
-        if ($this->cache) {
-            $this->cache->save(self::ACTIVITY_CACHE_KEY.$user, $data);
-        }
+        $this->storeCache($cacheKey, $data);
 
         return $data;
     }
@@ -155,8 +144,71 @@ class Contribution
         $this->client->authenticate($this->token, null, Client::AUTH_HTTP_TOKEN);
     }
 
+    /**
+     * checks if the data is found for this cache-key
+     *
+     * @param string $key
+     * @return mixed
+     */
+    private function checkForCache($key)
+    {
+        if ($this->cache && !$this->ignoreCache && (false !== $data = $this->cache->fetch($key))) {
+
+            return $data;
+        }
+    }
+
+    /**
+     * stores data in the cache if possible
+     *
+     * @param string $key
+     * @param mixed  $data
+     */
+    private function storeCache($key, $data)
+    {
+        if ($this->cache) {
+            $this->cache->save($key, $data);
+        }
+    }
+
+    /**
+     * ignores the reading from cache
+     */
     public function ignoreCache()
     {
         $this->ignoreCache = true;
+    }
+
+    /**
+     * get the repo contributors
+     *
+     * @param array $repo
+     * @return array
+     */
+    private function getContributorsFromRepo($repo)
+    {
+        $name = explode('/', $repo['full_name']);
+
+        return $this->client->api('repo')->contributors($name[0], $name[1]);
+    }
+
+    /**
+     * checks if a user is in the contributors list
+     *
+     * @param string $user
+     * @param array $repo
+     * @return bool
+     */
+    private function isContributor($user, $repo)
+    {
+        $contributors = $this->getContributorsFromRepo($repo);
+
+        foreach ($contributors as $contributor) {
+            if ($contributor['login'] == $user) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }

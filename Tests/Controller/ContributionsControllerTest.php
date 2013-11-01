@@ -2,7 +2,6 @@
 
 namespace digitalkaoz\GithubContributionsBundle\Tests\Controller;
 
-
 use digitalkaoz\GithubContributionsBundle\Controller\ContributionsController;
 
 /**
