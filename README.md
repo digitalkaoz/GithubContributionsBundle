@@ -11,6 +11,14 @@ See https://help.github.com/articles/viewing-contributions for more Information.
 [![Latest Stable Version](https://poser.pugx.org/digitalkaoz/github-contributions-bundle/v/stable.png)](https://packagist.org/packages/digitalkaoz/github-contributions-bundle)
 [![Total Downloads](https://poser.pugx.org/digitalkaoz/github-contributions-bundle/downloads.png)](https://packagist.org/packages/digitalkaoz/github-contributions-bundle)
 
+**Contribution Calendar**
+
+<img src="http://s21.postimg.org/4968z27w7/Bildschirmfoto_2013_11_01_um_20_40_06.png" />
+
+**Repositories & Contributions**
+
+<img src="http://s11.postimg.org/42ss5mmkj/Bildschirmfoto_2013_11_01_um_20_40_18.png" />
+
 Installation
 ============
 
@@ -98,12 +106,15 @@ the calculation of your contributions may take a while, so i build some commands
 Tests
 =====
 
-everything is well tested and under CI.
+everything is well tested and under CI:
+
+* https://travis-ci.org/digitalkaoz/GithubContributionsBundle
+* https://scrutinizer-ci.com/g/digitalkaoz/GithubContributionsBundle/
+* https://insight.sensiolabs.com/projects/a74d75ea-6aa5-4cf9-95dd-db4afbb5b2dc
 
 TODO
 ====
 
-* more Tests
 * other useful stats?
 * more generic approach for hooking own stats collectors?
 
