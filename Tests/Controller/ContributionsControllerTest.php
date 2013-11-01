@@ -61,7 +61,7 @@ class ContributionsControllerTest extends \PHPUnit_Framework_TestCase
     {
         $data = json_decode('[["2012/11/01",2],["2012/11/02",1],["2012/11/03",0]]', true);
         $this->factory->expects($this->atLeastOnce())->method('getActivityStream')->with('digitalkaoz')->will($this->returnValue($data));
-        $this->templating->expects($this->atLeastOnce())->method('render')->with('FooBundle:Bar:activity.html.twig', array('data' => array(1351724400 => 2,1351810800 => 1,1351897200 => 0), 'min' => 1351724400, 'max' => time()))->will($this->returnValue('activity'));
+        $this->templating->expects($this->atLeastOnce())->method('render')->with('FooBundle:Bar:activity.html.twig', array('data' => array(strtotime("2012/11/01") => 2,strtotime("2012/11/02") => 1,strtotime("2012/11/03") => 0), 'min' => strtotime("2012/11/01"), 'max' => time()))->will($this->returnValue('activity'));
 
         $result = $this->controller->activityStreamAction('digitalkaoz');
 
