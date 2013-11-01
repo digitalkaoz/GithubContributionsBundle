@@ -26,6 +26,7 @@
 
     "require": {
         "symfony/framework-bundle": "~2.3",
+        "symfony/console": "~2.3",
         "knplabs/github-api": "~1.1"
     },
 
