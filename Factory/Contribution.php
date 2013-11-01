@@ -31,6 +31,11 @@ class Contribution
     private $token;
 
     /**
+     * @var bool
+     */
+    private $ignoreCache = false;
+
+    /**
      * constructor
      *
      * @param Client $client
@@ -56,7 +61,7 @@ class Contribution
      */
     public function getContributions($user)
     {
-        if ($this->cache && (false !== $data = $this->cache->fetch(self::CONTRIBUTIONS_CACHE_KEY.$user))) {
+        if ($this->cache && !$this->ignoreCache && (false !== $data = $this->cache->fetch(self::CONTRIBUTIONS_CACHE_KEY.$user))) {
 
             return $data;
         }
@@ -96,7 +101,7 @@ class Contribution
      */
     public function getUserRepos($user)
     {
-        if ($this->cache && (false !== $data = $this->cache->fetch(self::OWN_REPOS_CACHE_KEY.$user))) {
+        if ($this->cache && !$this->ignoreCache && (false !== $data = $this->cache->fetch(self::OWN_REPOS_CACHE_KEY.$user))) {
 
             return $data;
         }
@@ -126,7 +131,7 @@ class Contribution
      */
     public function getActivityStream($user)
     {
-        if ($this->cache && (false !== $data = $this->cache->fetch(self::ACTIVITY_CACHE_KEY.$user))) {
+        if ($this->cache && !$this->ignoreCache && (false !== $data = $this->cache->fetch(self::ACTIVITY_CACHE_KEY.$user))) {
 
             return $data;
         }
@@ -150,4 +155,8 @@ class Contribution
         $this->client->authenticate($this->token, null, Client::AUTH_HTTP_TOKEN);
     }
 
+    public function ignoreCache()
+    {
+        $this->ignoreCache = true;
+    }
 }

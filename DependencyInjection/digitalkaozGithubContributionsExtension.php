@@ -47,7 +47,7 @@ class digitalkaozGithubContributionsExtension extends Extension
         }
 
         //add the api token if set
-        if (isset($config['token'])) {
+        if (isset($config['api_token'])) {
             $service->addArgument($config['api_token']);
         }
     }

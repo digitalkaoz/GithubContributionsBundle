@@ -33,7 +33,10 @@ class ReposCommand extends ContainerAwareCommand
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $factory = $this->getContainer()->get('digitalkaoz_github_contributions.factory');
+        $factory->ignoreCache();
 
         $factory->getUserRepos($input->getArgument('username'));
+
+        $output->writeln('repos cache for <info>'.$input->getArgument('username').'</info> successfully generated');
     }
 }

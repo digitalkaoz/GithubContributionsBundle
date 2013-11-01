@@ -33,7 +33,10 @@ class ActivityCommand extends ContainerAwareCommand
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $factory = $this->getContainer()->get('digitalkaoz_github_contributions.factory');
+        $factory->ignoreCache();
 
         $factory->getActivityStream($input->getArgument('username'));
+
+        $output->writeln('activity cache for <info>'.$input->getArgument('username').'</info> successfully generated');
     }
 }

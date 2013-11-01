@@ -34,7 +34,8 @@ class Configuration implements ConfigurationInterface
                         ->scalarNode('user_repos')->defaultValue('digitalkaozGithubContributionsBundle:Contributions:user_repos.html.twig')->end()
                     ->end()
                 ->end()
-            ->end();
+            ->end()
+        ;
 
         return $treeBuilder;
     }

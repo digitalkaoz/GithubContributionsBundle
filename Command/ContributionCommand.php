@@ -33,7 +33,10 @@ class ContributionCommand extends ContainerAwareCommand
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $factory = $this->getContainer()->get('digitalkaoz_github_contributions.factory');
+        $factory->ignoreCache();
 
         $factory->getContributions($input->getArgument('username'));
+
+        $output->writeln('contributions cache for <info>'.$input->getArgument('username').'</info> successfully generated');
     }
 }

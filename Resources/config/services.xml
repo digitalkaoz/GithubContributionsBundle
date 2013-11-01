@@ -10,7 +10,7 @@
     <services>
         <service id="digitalkaoz_github_contributions_cache_client" class="Github\HttpClient\CachedHttpClient" public="false">
             <argument type="collection">
-                <argument type="string" key="cache_dir">/tmp/github-api-cache</argument>
+                <argument type="string" key="cache_dir">%kernel.root_dir%/cache/github-api-cache</argument>
             </argument>
         </service>
         <service id="digitalkaoz_github_contributions_client" class="Github\Client"  public="false">
