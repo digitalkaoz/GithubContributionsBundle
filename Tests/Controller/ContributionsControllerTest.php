@@ -27,9 +27,8 @@ class ContributionsControllerTest extends \PHPUnit_Framework_TestCase
         $this->templating = $this->getMock('Symfony\Component\Templating\EngineInterface');
         $this->factory = $this->getMockBuilder('digitalkaoz\GithubContributionsBundle\Factory\Contribution')
             ->disableOriginalConstructor()
-            ->setMethods(array('getContributions','getUserRepos','getActivityStream'))
-            ->getMock()
-        ;
+            ->setMethods(array('getContributions', 'getUserRepos', 'getActivityStream'))
+            ->getMock();
 
         $this->controller = new ContributionsController($this->factory, $this->templating, $templates);
     }
@@ -37,7 +36,7 @@ class ContributionsControllerTest extends \PHPUnit_Framework_TestCase
     public function testContributionsAction()
     {
         $this->factory->expects($this->atLeastOnce())->method('getContributions')->with('digitalkaoz')->will($this->returnValue(array('a')));
-        $this->templating->expects($this->atLeastOnce())->method('render')->with('FooBundle:Bar:contributions.html.twig',array('contributions'=>array('a')))->will($this->returnValue('contributions'));
+        $this->templating->expects($this->atLeastOnce())->method('render')->with('FooBundle:Bar:contributions.html.twig', array('contributions' => array('a')))->will($this->returnValue('contributions'));
 
         $result = $this->controller->contributionsAction('digitalkaoz');
 
@@ -48,8 +47,8 @@ class ContributionsControllerTest extends \PHPUnit_Framework_TestCase
 
     public function testUserReposAction()
     {
-        $this->factory->expects($this->atLeastOnce())->method('getUserRepos')->with('digitalkaoz')->will($this->returnValue(array('a')));
-        $this->templating->expects($this->atLeastOnce())->method('render')->with('FooBundle:Bar:repos.html.twig',array('repos'=>array('a')))->will($this->returnValue('repos'));
+        $this->factory->expects($this->atLeastOnce())->method('getUserRepos')->with('digitalkaoz')->will($this->returnValue(array(array('pushed_at'=>time()), array('pushed_at'=>time()-1))));
+        $this->templating->expects($this->atLeastOnce())->method('render')->with('FooBundle:Bar:repos.html.twig', array('repos' => array(array('pushed_at'=>time()-1), array('pushed_at'=>time()))))->will($this->returnValue('repos'));
 
         $result = $this->controller->userReposAction('digitalkaoz');
 
@@ -60,8 +59,9 @@ class ContributionsControllerTest extends \PHPUnit_Framework_TestCase
 
     public function testActivityStreamAction()
     {
-        $this->factory->expects($this->atLeastOnce())->method('getActivityStream')->with('digitalkaoz')->will($this->returnValue(array()));
-        $this->templating->expects($this->atLeastOnce())->method('render')->with('FooBundle:Bar:activity.html.twig',array('data'=>array(),'min'=>time(), 'max' => time()))->will($this->returnValue('activity'));
+        $data = json_decode('[["2012/11/01",2],["2012/11/02",1],["2012/11/03",0]]', true);
+        $this->factory->expects($this->atLeastOnce())->method('getActivityStream')->with('digitalkaoz')->will($this->returnValue($data));
+        $this->templating->expects($this->atLeastOnce())->method('render')->with('FooBundle:Bar:activity.html.twig', array('data' => array(1351724400 => 2,1351810800 => 1,1351897200 => 0), 'min' => 1351724400, 'max' => time()))->will($this->returnValue('activity'));
 
         $result = $this->controller->activityStreamAction('digitalkaoz');
 

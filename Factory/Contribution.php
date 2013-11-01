@@ -63,7 +63,7 @@ class Contribution
     {
         $cacheKey = self::CONTRIBUTIONS_CACHE_KEY . $user;
 
-        if (null !== $data = $this->checkForCache($cacheKey)) {
+        if ($data = $this->checkForCache($cacheKey)) {
 
             return $data;
         }
@@ -97,7 +97,7 @@ class Contribution
     {
         $cacheKey = self::OWN_REPOS_CACHE_KEY . $user;
 
-        if (null !== $data = $this->checkForCache($cacheKey)) {
+        if ($data = $this->checkForCache($cacheKey)) {
 
             return $data;
         }
@@ -122,7 +122,7 @@ class Contribution
     {
         $cacheKey = self::ACTIVITY_CACHE_KEY . $user;
 
-        if (null !== $data = $this->checkForCache($cacheKey)) {
+        if ($data = $this->checkForCache($cacheKey)) {
 
             return $data;
         }

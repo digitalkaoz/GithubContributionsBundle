@@ -65,7 +65,7 @@ class digitalkaozGithubContributionsExtension extends Extension
         $service->addArgument($config['templates']);
 
         //add the user if set
-        if ($config['username']) {
+        if (isset($config['username'])) {
             $service->addArgument($config['username']);
         }
     }
