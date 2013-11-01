@@ -4,9 +4,39 @@ filter:
         - 'app/*'
         - 'web/*'
 tools:
-    php_cpd: true
-    php_pdepend: true
-    php_mess_detector: true
+    php_cpd:
+        enabled: true
+        command: phpcpd
+        min_lines: 5
+        min_tokens: 70
+        excluded_dirs:
+            - 'Tests/*'
+            - 'vendor'
+        names:
+            - '*.php'
+    php_pdepend:
+        excluded_dirs:
+            - 'vendor'
+            - 'Tests'
+        enabled: true
+        command: pdepend
+        configuration_file: null
+        suffixes:
+            - php
+    php_mess_detector:
+        enabled: true
+        extensions:
+            - php
+        command: phpmd
+        filter:
+            excluded_paths:
+                - 'vendor/*'
+                - 'Tests/*'
+            paths: {  }
+        config:
+            rulesets:
+                - codesize
+        path_configs: {  }
     php_cs_fixer: true
     php_analyzer:
         config:
@@ -33,3 +63,6 @@ tools:
     sensiolabs_security_checker: true
     php_code_coverage: true
     php_loc: true
+
+before_commands:
+    - "composer install --prefer-source"
