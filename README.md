@@ -28,7 +28,7 @@ Add the Bundle with `Composer`
 ```json
 {
     "require" : {
-        "digitalkaoz/GithubContributionsBundle" : "dev-master"
+        "digitalkaoz/GithubContributionsBundle" : "~1.0"
     }
 }
 ```
