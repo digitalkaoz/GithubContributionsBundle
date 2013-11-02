@@ -1,5 +1,9 @@
 var contributions = function (query) {
     var elem = document.getElementById(query);
+
+    if (!elem) {
+        return;
+    }
     var min = elem.getAttribute('data-min');
     var max = elem.getAttribute('data-max');
     var next = elem.getAttribute('data-next');
