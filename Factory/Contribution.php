@@ -129,7 +129,7 @@ class Contribution
 
         $client = $this->client->getHttpClient();
         $client->setOption('base_url', 'https://github.com/');
-        $data = $client->get('users/' . $user . '/contributions_calendar_data')->getContent();
+        $data = json_decode($client->get('users/' . $user . '/contributions_calendar_data')->getBody(true), JSON_OBJECT_AS_ARRAY);
 
         $this->storeCache($cacheKey, $data);
 

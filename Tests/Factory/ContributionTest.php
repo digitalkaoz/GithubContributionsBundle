@@ -10,7 +10,7 @@ namespace digitalkaoz\GithubContributionsBundle\Tests\Factory;
 
 use digitalkaoz\GithubContributionsBundle\Factory\Contribution;
 use Github\Client;
-use Github\HttpClient\Message\Response;
+use Guzzle\Http\Message\Response;
 
 /**
  * @covers digitalkaoz\GithubContributionsBundle\Factory\Contribution
@@ -41,8 +41,8 @@ class ContributionTest extends \PHPUnit_Framework_TestCase
         $this->cache->expects($this->atLeastOnce())->method('save');
 
         //1. fetch all own repos
-        $responseRepos = new Response();
-        $responseRepos->setContent('[
+        $responseRepos = new Response(200);
+        $responseRepos->setBody('[
                 {
                   "name": "parent",
                   "full_name": "foo/parent",
@@ -62,8 +62,8 @@ class ContributionTest extends \PHPUnit_Framework_TestCase
         ]');
 
         //2. fetch detail for a repo to get the parent
-        $responseOwnRepo = new Response();
-        $responseOwnRepo->setContent('
+        $responseOwnRepo = new Response(200);
+        $responseOwnRepo->setBody('
                 {
                   "name": "parent",
                   "full_name": "foo/parent",
@@ -82,8 +82,8 @@ class ContributionTest extends \PHPUnit_Framework_TestCase
         ');
 
         //3. fetch the contributors from the parent
-        $responseContributors = new Response();
-        $responseContributors->setContent('[
+        $responseContributors = new Response(200);
+        $responseContributors->setBody('[
                 {
                     "login": "foo"
                 },
@@ -130,8 +130,8 @@ class ContributionTest extends \PHPUnit_Framework_TestCase
     public function testGetActivityStream()
     {
         $data = '[["2012/11/01",2],["2012/11/02",1],["2012/11/03",0]]';
-        $response = new Response();
-        $response->setContent($data);
+        $response = new Response(200);
+        $response->setBody($data);
 
         $this->client->expects($this->atLeastOnce())->method('get')->with('users/foo/contributions_calendar_data')->will($this->returnValue($response));
         $result = $this->factory->getActivityStream('foo');
@@ -163,8 +163,8 @@ class ContributionTest extends \PHPUnit_Framework_TestCase
                   "fork": false
                 }
         ]';
-        $response = new Response();
-        $response->setContent($data);
+        $response = new Response(200);
+        $response->setBody($data);
 
         $this->client->expects($this->atLeastOnce())->method('get')->with('users/foo/repos')->will($this->returnValue($response));
         $result = $this->factory->getUserRepos('foo');
@@ -200,8 +200,8 @@ class ContributionTest extends \PHPUnit_Framework_TestCase
         $this->cache->expects($this->never())->method('fetch');
         $this->factory->ignoreCache();
 
-        $response = new Response();
-        $response->setContent($data);
+        $response = new Response(200);
+        $response->setBody($data);
 
         $this->client->expects($this->atLeastOnce())->method('get')->with('users/foo/contributions_calendar_data')->will($this->returnValue($response));
         $result = $this->factory->getActivityStream('foo');
