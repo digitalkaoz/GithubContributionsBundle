@@ -2,7 +2,6 @@
 
 namespace digitalkaoz\GithubContributionsBundle\Tests\Command;
 
-
 use digitalkaoz\GithubContributionsBundle\Command\ContributionsCommand;
 use Symfony\Component\Console\Tester\CommandTester;
 
@@ -72,4 +71,3 @@ class ContributionsCommandTest extends \PHPUnit_Framework_TestCase
     }
 
 }
- 

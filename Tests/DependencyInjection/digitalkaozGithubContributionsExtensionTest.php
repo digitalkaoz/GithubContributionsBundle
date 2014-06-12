@@ -33,4 +33,3 @@ class digitalkaozGithubContributionsExtensionTest extends \PHPUnit_Framework_Tes
         $this->assertEquals('github_api_token', $container->getDefinition('digitalkaoz_github_contributions.factory')->getArgument(2));
     }
 }
- 

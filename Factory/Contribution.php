@@ -2,7 +2,6 @@
 
 namespace digitalkaoz\GithubContributionsBundle\Factory;
 
-
 use Doctrine\Common\Cache\Cache;
 use Github\Client;
 
@@ -64,7 +63,6 @@ class Contribution
         $cacheKey = self::CONTRIBUTIONS_CACHE_KEY . $user;
 
         if ($data = $this->checkForCache($cacheKey)) {
-
             return $data;
         }
 
@@ -75,7 +73,7 @@ class Contribution
         foreach ($repos as $key => $repo) {
             $details = $this->client->api('repo')->show($user, $repo['name']);
 
-            if($this->isContributor($user, $details['parent'])) {
+            if ($this->isContributor($user, $details['parent'])) {
                 $repos[$key] = $details['parent'];
             } else {
                 unset($repos[$key]);
@@ -98,7 +96,6 @@ class Contribution
         $cacheKey = self::OWN_REPOS_CACHE_KEY . $user;
 
         if ($data = $this->checkForCache($cacheKey)) {
-
             return $data;
         }
 
@@ -123,7 +120,6 @@ class Contribution
         $cacheKey = self::ACTIVITY_CACHE_KEY . $user;
 
         if ($data = $this->checkForCache($cacheKey)) {
-
             return $data;
         }
 
@@ -146,13 +142,12 @@ class Contribution
     /**
      * checks if the data is found for this cache-key
      *
-     * @param string $key
+     * @param  string $key
      * @return mixed
      */
     private function checkForCache($key)
     {
         if ($this->cache && !$this->ignoreCache && (false !== $data = $this->cache->fetch($key))) {
-
             return $data;
         }
     }
@@ -181,7 +176,7 @@ class Contribution
     /**
      * get the repo contributors
      *
-     * @param array $repo
+     * @param  array $repo
      * @return array
      */
     private function getContributorsFromRepo($repo)
@@ -194,8 +189,8 @@ class Contribution
     /**
      * checks if a user is in the contributors list
      *
-     * @param string $user
-     * @param array $repo
+     * @param  string $user
+     * @param  array  $repo
      * @return bool
      */
     private function isContributor($user, $repo)
