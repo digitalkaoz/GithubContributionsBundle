@@ -23,9 +23,10 @@
     },
 
     "require": {
-        "symfony/console": "~2.1",
-        "symfony/framework-bundle": "~2.1",
-        "knplabs/github-api": "~1.2"
+        "symfony/console": "@stable",
+        "symfony/framework-bundle": "@stable",
+        "knplabs/github-api": "@stable",
+        "doctrine/cache": "@stable"
     },
 
     "suggest": {
