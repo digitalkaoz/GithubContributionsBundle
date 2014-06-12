@@ -133,7 +133,7 @@ class ContributionTest extends \PHPUnit_Framework_TestCase
         $response = new Response(200);
         $response->setBody($data);
 
-        $this->client->expects($this->atLeastOnce())->method('get')->with('users/foo/contributions_calendar_data')->will($this->returnValue($response));
+        $this->client->expects($this->atLeastOnce())->method('get')->with('https://github.com/users/foo/contributions_calendar_data')->will($this->returnValue($response));
         $result = $this->factory->getActivityStream('foo');
 
         $this->assertEquals(json_decode($data, true), $result);
@@ -203,7 +203,7 @@ class ContributionTest extends \PHPUnit_Framework_TestCase
         $response = new Response(200);
         $response->setBody($data);
 
-        $this->client->expects($this->atLeastOnce())->method('get')->with('users/foo/contributions_calendar_data')->will($this->returnValue($response));
+        $this->client->expects($this->atLeastOnce())->method('get')->with('https://github.com/users/foo/contributions_calendar_data')->will($this->returnValue($response));
         $result = $this->factory->getActivityStream('foo');
 
         $this->assertEquals(json_decode($data, true), $result);
