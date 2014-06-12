@@ -127,7 +127,7 @@ class Contribution
         }
 
         $client = $this->client->getHttpClient();
-        $data = json_decode($client->get('https://github.com/users/' . $user . '/contributions_calendar_data')->getBody(true), true);
+        $data = json_decode($client->get('https://github.com/users/' . $user . '/contributions_calendar_data'), true);
 
         $this->storeCache($cacheKey, $data);
 
@@ -186,7 +186,10 @@ class Contribution
     {
         $name = explode('/', $repo['full_name']);
 
-        return $this->client->api('repo')->contributors($name[0], $name[1]);
+        $repoApi = $this->client->api('repo');
+        /** @var Repo $repoApi */
+
+        return $repoApi->contributors($name[0], $name[1]);
     }
 
     /**
