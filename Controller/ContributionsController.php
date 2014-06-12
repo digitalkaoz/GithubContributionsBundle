@@ -20,7 +20,7 @@ class ContributionsController
      */
     private $factory;
     /**
-     * @var TwigEngine
+     * @var EngineInterface
      */
     private $templating;
     /**
@@ -35,9 +35,9 @@ class ContributionsController
     /**
      * constructor
      *
-     * @param Contribution $factory
-     * @param TwigEngine   $templating
-     * @param array        $templates
+     * @param Contribution    $factory
+     * @param EngineInterface $templating
+     * @param array           $templates
      */
     public function __construct(Contribution $factory, EngineInterface $templating, array $templates, $user = null)
     {
@@ -50,10 +50,10 @@ class ContributionsController
     /**
      * fetches all repositories which the user contributed to
      *
-     * @param  string                     $username
+     * @param  string $username
      * @return Response
      * @throws NotAcceptableHttpException
-     *                                             @see https://help.github.com/articles/viewing-contributions#repositories-contributed
+     * @see https://help.github.com/articles/viewing-contributions#repositories-contributed
      */
     public function contributionsAction($username = null)
     {
@@ -66,7 +66,7 @@ class ContributionsController
     /**
      * fetches all repositories of this user
      *
-     * @param  string                     $username
+     * @param  string $username
      * @return Response
      * @throws NotAcceptableHttpException
      */
@@ -82,10 +82,10 @@ class ContributionsController
     /**
      * fetches the activity stream
      *
-     * @param  string                     $username
+     * @param  string $username
      * @return Response
      * @throws NotAcceptableHttpException
-     *                                             @see https://help.github.com/articles/viewing-contributions#contributions-calendar
+     * @see https://help.github.com/articles/viewing-contributions#contributions-calendar
      */
     public function activityStreamAction($username = null)
     {
@@ -99,7 +99,7 @@ class ContributionsController
     /**
      * checks if a user is injected or given a request parameter
      *
-     * @param  string                     $username
+     * @param  string $username
      * @return string
      * @throws NotAcceptableHttpException
      */
@@ -109,7 +109,7 @@ class ContributionsController
             throw new NotAcceptableHttpException('either set username or pass a username');
         }
 
-        return $username ?: $this->user;
+        return $username ? : $this->user;
     }
 
     /**
@@ -133,7 +133,7 @@ class ContributionsController
      *
      * @param  array $data
      * @return array
-     *                    @see http://kamisama.github.io/cal-heatmap
+     * @see http://kamisama.github.io/cal-heatmap
      */
     private function prepareActivityData(array $data)
     {
