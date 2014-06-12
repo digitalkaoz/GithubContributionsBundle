@@ -3,6 +3,7 @@
 namespace digitalkaoz\GithubContributionsBundle\Factory;
 
 use Doctrine\Common\Cache\Cache;
+use Github\Api\Repo;
 use Github\Client;
 
 /**
@@ -70,8 +71,10 @@ class Contribution
             return false !== $repo['fork'];
         });
 
+        $repoApi = $this->client->api('repo');
         foreach ($repos as $key => $repo) {
-            $details = $this->client->api('repo')->show($user, $repo['name']);
+            /** @var Repo $repoApi */
+            $details = $repoApi->show($user, $repo['name']);
 
             if ($this->isContributor($user, $details['parent'])) {
                 $repos[$key] = $details['parent'];
